@@ -1,65 +1,37 @@
+import { useDispatch, useSelector } from 'react-redux';
 import './App.css';
 import { useState } from 'react';
-import TodoForm from './TodoForm'
-import ToDo from './ToDo';
+import { type } from '@testing-library/user-event/dist/type';
+
 
 function App() {
 
-  const [todos, setTodos] = useState([])
-
-   const addTask = (text) => {
-    if(text){
-      const newTodo = {
-        id: Math.random().toString(10).substr(2,9) ,
-        task:text ,
-        completed: false
-      }
-      setTodos([...todos,newTodo])
-    }
-  }
-
-  const removedTask = (id) => {
-    setTodos([...todos.filter(todo => todo.id !== id)])
-  }
+const numder = useSelector(state => state)
+const dispatch = useDispatch(state => state )
+ 
 
 
-  const toggle = (id) => {
-    setTodos([...todos.map(todo => todo.id === id ?
-      {
-        ...todo,
-        completed: !todo.completed
-      }
-      :
-      {...todo}
-    )])
-  }
+const plus = () => {
+  dispatch({
+    type: 'PLUS'
+  })
+}
+  const minus = () => {
+    dispatch({
+      type: 'MINUS'
+    })
+
+}
 
 
 
   return(
-    <div className='ontainer mx-auto p-4 max-w-md'>
-      <header>
-        <h1 className='text-center text-4xl italic text-blue-500 mb-6'>Количество задач №{todos.length}</h1>
-      </header>
-      {
-        todos.map((todo) =>{
-          return(
-
-          <ToDo 
-          todo={todo}
-          removedTask={removedTask}
-          toggle={toggle}
-          />
-          )
-          
-
-        })
-      }
-      
-      <TodoForm addTask={addTask}/>
+    <div className='container mx-auto text-center'>
+      <p className='text-5xl font-bold '>{numder}</p>
+      <button onClick={plus} className='border-2 border-green-500 py-2 px-5 text-xl'>+</button>
+      <button onClick={minus} className='border-2 border-green-500 py-2 px-5 text-xl'>-</button>
     </div>
-  
-)
+  )
  
 }
 
