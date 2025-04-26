@@ -3,34 +3,56 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-
-const initialState = 0
-
-const reducer = (state=initialState, action) => {
- 
-    if(action.type === 'PLUS'){
-      return state +1
-    }
-
-    if(action.type === 'MINUS'){
-      return state -1
-    }
- 
-  return state
-}
-const store = createStore(reducer)
-
-
+import {BrowserRouter} from 'react-router-dom'
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <Provider store={store}>
+
+  <BrowserRouter>
     <App/>
-  </Provider>
+  </BrowserRouter>
+    
+
 );
 
 
 reportWebVitals();
+
+
+
+
+
+
+/*
+const initialState = [
+  {
+   id: '1',
+   text:'React',
+   completed: false
+  },
+  {
+    id: '2',
+    text:'JS',
+    completed: false
+   }
+
+]
+
+const reducer = (state=initialState, action) => {
+ 
+
+
+   switch(action.type){
+      case 'DELETE':
+        return state.filter(item => item.id !== action.payload)
+      case 'ADD':
+        return[...state,action.payload ]
+  
+      default:  
+        return state
+    }
+  
+}
+const store = createStore(reducer)
+*/
